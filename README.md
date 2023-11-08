@@ -7,11 +7,12 @@ Kelas: PBP A<br>
 # Tugas 7
 ## Checklist Tugas
 - [x] Membuat sebuah proyek Flutter baru dengan tema inventory seperti tugas-tugas sebelumnya.
-* Menjalankan _flutter create cakestock_ pada direktori lokal.
-* Membuat file baru bernama _menu.dart_ pada direktori _cakestock/lib_
-* Menambahkan kode _import 'package:flutter/material.dart';_ pada baris pertama _menu.dart_
+* Menjalankan `flutter create cakestock` pada direktori lokal.
+* Membuat file baru bernama `menu.dart` pada direktori `cakestock/lib`
+* Menambahkan kode `import 'package:flutter/material.dart';` pada baris pertama `menu.dart`
 * Membuat widget stateless MyHomePage 
-```class MyHomePage extends StatelessWidget {
+```
+class MyHomePage extends StatelessWidget {
     MyHomePage({Key? key}) : super(key: key);
 
     @override
@@ -22,12 +23,12 @@ Kelas: PBP A<br>
     }
 }
 ```
-* Menghubungkan _main.dart_ dengan _menu.dart_:
-    * Menambahkan _import 'package:cakestock/menu.dart';_ pada _main.dart_
-    * Pastikan MaterialApp yang di-return di _main.dart_ memiliki atribut _home: MyHomePage(),_
+* Menghubungkan `main.dart` dengan `menu.dart`:
+    * Menambahkan `import 'package:cakestock/menu.dart';` pada `main.dart`
+    * Pastikan MaterialApp yang di-return di `main.dart` memiliki atribut `home: MyHomePage()`
 
 - [x] Membuat tiga tombol sederhana (Lihat Item, Tambah Item, dan Logout) dengan ikon dan teks.
-* Membuat objek yang menyimpan data tombol, yakni nama dan ikonnya di _menu.dart_.
+* Membuat objek yang menyimpan data tombol, yakni nama dan ikonnya di `menu.dart`
 ```
 class CakeItem {
   final String name;
@@ -36,7 +37,7 @@ class CakeItem {
   CakeItem(this.name, this.icon);
 }
 ``` 
-* Tambahkan list berisi objek tombol yang akan ditampilkan di dalam class MyHomePage (di bawah _MyHomePage({Key? key}) : super(key: key);_)
+* Tambahkan list berisi objek tombol yang akan ditampilkan di dalam class MyHomePage (di bawah `MyHomePage({Key? key}) : super(key: key);`)
 ```
 final List<CakeItem> items = [
     CakeItem("Lihat Item", Icons.checklist),
@@ -139,30 +140,30 @@ class ShopCard extends StatelessWidget {
   }
 }
 ```
-- [x] Membuat repositori baru di github bernama cakestock-mobile dengan visibilitas Public.
+- [x] Membuat repositori baru di github bernama `cakestock-mobile` dengan visibilitas Public.
 - [x] Menghubungkan repositori lokal dengan repositori di github.
 
 ## Jawaban Pertanyaan
 #### Apa perbedaan utama antara stateless dan stateful widget dalam konteks pengembangan aplikasi Flutter?
 Widget adalah semua komponen yang kita lihat di aplikasi flutter seperti button, icon, dan bahkan text. State merupakan informasi atau data yang ada pada suatu widget. Setiap widget menyimpan state yang terbagi menjadi dua jenis berdasarkan dapat berubah atau tidaknya suatu state. Stateless widget adalah widget yang state-nya tidak dapat berubah (immutable) selama runtime aplikasi. Beberapa contoh stateless widget adalah Icon, Text,dan TextButton. Sementara itu stateful widget adalah widget yang propertinya dapat berubah selama runtime(mutable). Perubahan state pada stateful widget merupakan respon terhadap interaksi pengguna maupun pada saat menerima data. Beberapa contoh stateful widget antara lain Checkbox, TextField, dan Slider.
 #### Sebutkan seluruh widget yang kamu gunakan untuk menyelesaikan tugas ini dan jelaskan fungsinya masing-masing.
-1. _MyApp_: berperan sebagai root widget aplikasi
-2. _MaterialApp_: widget yang di-return oleh MyApp, berfungsi untuk mengimplementasikan _Material Design_ yang menyediakan konfigurasi untuk tema, navigasi, dan judul aplikasi
-3. _ThemeData_: mengatur tema global yang akan digunakan oleh _MaterialApp_
-4. _ColorScheme_: mengatur skema warna aplikasi
-5. _MyHomePage_: custom widget sebagai halaman utama aplikasi
-6. _Scaffold_: struktur visual dasar untuk aplikasi _Material Design_
-7. _AppBar_: sebagai bar aplikasi _Material Design_ yang berada di atas Scaffold
-8. _Text_: menampilkan teks dalam satu gaya font tunggal
-9. _Theme_: dalam tugas ini digunakan untuk mengambil warna latar belakang AppBar
-10. _SingleChildScrollView_: widget wrapper yang dapat di-scroll jika child-nya melebihi ukuran layar
-11. _Padding_: mengatur padding dari halaman 
-12. _Column_: menampilkan children-nya dalam urutan vertikal 
-13. _GridView.count_: membuat layout grid dengan jumlah kolom tetap
-14. _ShopCard_: custom widget untuk menampilkan tombol dalam tugas ini
-15. _Material_: memberikan efek visual _Material Design_ pada widget child-nya
-16. _InkWell_: widget yang merespon sentuhan dengan efek visual splash, berperan sebagai tombol dalam tugas ini
-17. _Container_: widget wrapper untuk mengelompokkan beberapa widget sebagai satu kesatuan fungsional maupun untuk memberi setting (misal ukuran dan posisi) yang sama 
-18. _Center_: widget yang memposisikan child-nya di tengah
-19. _Icon_: menampilkan ikon _Material Design_
-20. _SnackBar_: menampilkan pesan singkat di bagian bawah layar
+1. `MyApp`: berperan sebagai root widget aplikasi
+2. `MaterialApp`: widget yang di-return oleh MyApp, berfungsi untuk mengimplementasikan _Material Design_ yang menyediakan konfigurasi untuk tema, navigasi, dan judul aplikasi
+3. `ThemeData`: mengatur tema global yang akan digunakan oleh _MaterialApp_
+4. `ColorScheme`: mengatur skema warna aplikasi
+5. `MyHomePage`: custom widget sebagai halaman utama aplikasi
+6. `Scaffold`: struktur visual dasar untuk aplikasi _Material Design_
+7. `AppBar`: sebagai bar aplikasi _Material Design_ yang berada di atas Scaffold
+8. `Text`: menampilkan teks dalam satu gaya font tunggal
+9. `Theme`: dalam tugas ini digunakan untuk mengambil warna latar belakang AppBar
+10. `SingleChildScrollView`: widget wrapper yang dapat di-scroll jika child-nya melebihi ukuran layar
+11. `Padding`: mengatur padding dari halaman 
+12. `Column`: menampilkan children-nya dalam urutan vertikal 
+13. `GridView.count`: membuat layout grid dengan jumlah kolom tetap
+14. `ShopCard`: custom widget untuk menampilkan tombol dalam tugas ini
+15. `Material`: memberikan efek visual _Material Design_ pada widget child-nya
+16. `InkWell`: widget yang merespon sentuhan dengan efek visual splash, berperan sebagai tombol dalam tugas ini
+17. `Container`: widget wrapper untuk mengelompokkan beberapa widget sebagai satu kesatuan fungsional maupun untuk memberi setting (misal ukuran dan posisi) yang sama 
+18. `Center`: widget yang memposisikan child-nya di tengah
+19. `Icon`: menampilkan ikon _Material Design_
+20. `SnackBar`: menampilkan pesan singkat di bagian bawah layar
