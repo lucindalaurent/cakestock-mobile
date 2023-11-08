@@ -11,7 +11,7 @@ Kelas: PBP A<br>
 * Membuat file baru bernama `menu.dart` pada direktori `cakestock/lib`
 * Menambahkan kode `import 'package:flutter/material.dart';` pada baris pertama `menu.dart`
 * Membuat widget stateless MyHomePage 
-```
+```dart
 class MyHomePage extends StatelessWidget {
     MyHomePage({Key? key}) : super(key: key);
 
@@ -29,7 +29,7 @@ class MyHomePage extends StatelessWidget {
 
 - [x] Membuat tiga tombol sederhana (Lihat Item, Tambah Item, dan Logout) dengan ikon dan teks.
 * Membuat objek yang menyimpan data tombol, yakni nama dan ikonnya di `menu.dart`
-```
+```dart
 class CakeItem {
   final String name;
   final IconData icon;
@@ -38,7 +38,7 @@ class CakeItem {
 }
 ``` 
 * Tambahkan list berisi objek tombol yang akan ditampilkan di dalam class MyHomePage (di bawah `MyHomePage({Key? key}) : super(key: key);`)
-```
+```dart
 final List<CakeItem> items = [
     CakeItem("Lihat Item", Icons.checklist),
     CakeItem("Tambah Item", Icons.add_shopping_cart),
@@ -46,7 +46,7 @@ final List<CakeItem> items = [
   ];
 ```
 * Melengkapi kode Widget build pada MyHomePage
-```
+```dart
 return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -94,7 +94,7 @@ return Scaffold(
 ```
 - [x] Memunculkan Snackbar saat tombol ditekan dengan tulisan keterangan tombol apa yang ditekan.
 * Membuat widget stateless baru untuk menampilkan tombol dan mengatur supaya jika ada snackbar yang sedang tampil, maka disembunyikan dulu sebelum menampilkan snackbar yang baru.
-```
+```dart
 class ShopCard extends StatelessWidget {
   final CakeItem item;
 
