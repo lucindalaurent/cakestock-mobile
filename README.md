@@ -562,8 +562,10 @@ Pada aplikasi Flutter, penerapan _clean architecture_ biasanya terdiri dari lapi
 1. Presentation layer (UI): terdiri dari komponen _user interface_ seperti widgets, screens, dan views. Layer ini bertanggung jawab menangani interaksi dengan pengguna dan rendering UI (termasuk _state management_).
 2. Domain layer (business logic): mewakili logika bisnis aplikasi, berisi _use cases, entities,_ dan _business rules._ Use cases adalah operasi atau aksi yang bisa dilakukan dalam aplikasi. _Entities_ merepresentasikan objek penting dalam _domain layer_ serta enkapsulasi perilaku dan state objek tersebut. 
 3. Data layer: bertanggung jawab atas penyimpanan dan pengaksesan data. Data layer umumnya terdiri dari _repositories_ dan _data sources_. _Repositories_ menyediakan abstraksi untuk mengakses dan memanipulasi data. Data sources bisa berupa remote APIs, local database, maupun sumber data eksternal lainnya. <br>
-<br>
-Contoh struktur proyek Flutter yang menerapkan _clean architecture_: <br>
+
+
+Contoh struktur proyek Flutter yang menerapkan _clean architecture_: 
+
 ```
 lib/
 |- data/
