@@ -565,6 +565,7 @@ Pada aplikasi Flutter, penerapan _clean architecture_ biasanya terdiri dari lapi
 <br>
 Contoh struktur proyek Flutter yang menerapkan _clean architecture_: <br>
 ```
+
 - lib
  - data
    - repositories
