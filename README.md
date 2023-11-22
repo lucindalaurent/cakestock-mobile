@@ -172,7 +172,9 @@ Widget adalah semua komponen yang kita lihat di aplikasi flutter seperti button,
 
 </details>
 
-# Tugas 8
+<details>
+<summary>Tugas 8</summary>
+
 ## Checklist Tugas
 - [x] Membuat minimal satu halaman baru pada aplikasi, yaitu halaman formulir tambah item baru
 * Membuat file `addcake_form.dart` 
@@ -577,3 +579,189 @@ lib/
 |  |- screens/
 |  |- widgets/
 ```
+</details>
+
+# Tugas 9
+## Jawaban Pertanyaan
+### Apakah bisa kita melakukan pengambilan data JSON tanpa membuat model terlebih dahulu? Jika iya, apakah hal tersebut lebih baik daripada membuat model sebelum melakukan pengambilan data JSON?
+Iya, kita bisa melakukan pengambilan data JSON tanpa membuat model terlebih dahulu. Namun hal tersebut tidak lebih baik daripada membuat model sebelum pengambilan data JSON. Jika kita tidak membuat model terlebih dahulu maka proses pengolahan/pengaksesan data JSON tersebut nantinya akan lebih rumit. Dikhawatirkan ada perbedaan syntax antara Javascript dan Dart yang dapat menyebabkan masalah saat mengakses data. Dengan membuat model dan menyimpan data JSON tersebut sebagai objek dalam bahasa Dart, data tersebut akan lebih mudah diakses dan kodenya lebih mudah dibaca. 
+### Jelaskan fungsi dari CookieRequest dan jelaskan mengapa instance CookieRequest perlu untuk dibagikan ke semua komponen di aplikasi Flutter.
+CookieRequest adalah sebuah kelas yang digunakan untuk mengelola HTTP request dan cookie yang terkait dengan request tersebut. 
+Fungsi dari CookieRequest adalah untuk menyediakan akses ke data cookie yang dibutuhkan oleh berbagai bagian dari aplikasi. CookieRequest perlu dibagikan ke semua komponen di aplikasi Flutter agar komponen-komponen yang berbeda dapat mengakses dan menggunakan data cookie tersebut tanpa perlu membuat instance CookieRequest baru.Instance CookieRequest perlu dibagikan ke semua komponen di aplikasi Flutter agar semua komponen dalam aplikasi dapat melakukan HTTP request yang terautentikasi dan semua komponen akan memiliki akses ke data pengguna yang sama. Selain itu, membagikan instance CookieRequest ke semua komponen mempermudah koordinasi dan pertukaran data antar komponen dalam aplikasi. Hal ini dapat meningkatkan efisiensi dan memastikan konsistensi dalam penggunaan data cookie di seluruh aplikasi Flutter.
+### Jelaskan mekanisme pengambilan data dari JSON hingga dapat ditampilkan pada Flutter.
+1. Fungsi `fetchProduct` mengajukan permintaan HTTP GET ke URL yang ditentukan secara asinkronus menggunakan `http.get` untuk mendapatkan semua data JSON.
+2. Gunakan jsonDecode untuk decode http response dari server menjadi bentuk JSON
+3. Konversi data JSON menjadi objek Item menggunakan method yang sudah didefinisikan dalam kelas Item, lalu semua objek Item disimpan dalam sebuah list.
+4. Untuk tugas ini, akan ditampilkan data seluruh Item yang pernah dimasukkan user ke aplikasi web. Digunakan FutureBuilder untuk menunggu `fetchProduct` selesai, kemudian data dimuat dengan `ListView.builder` menggunakan `Card`.
+###  Jelaskan mekanisme autentikasi dari input data akun pada Flutter ke Django hingga selesainya proses autentikasi oleh Django dan tampilnya menu pada Flutter.
+1. Membuat object request menggunakan CookieRequest
+2. Pada aplikasi flutter, user akan memasukkan username dan password melalui `TextField`.
+3. Aplikasi flutter membuat permintaan HTTP POST ke endpoint login Django menggunakan CookieRequest. Username dan password yang dimasukkan pengguna juga dikirimkan sebagai bagian dari body request.
+4. Django memproses permintaan login, memeriksa apakah username dan password valid, dan mengirimkan respon ke aplikasi Flutter. Jika autentikasi berhasil, maka pengguna diarahkan ke halaman `MyHomePage()`. Jika gagal maka akan ditampilkan `AlertDialog()` berisi pesan bahwa login gagal.
+### Sebutkan seluruh widget yang kamu pakai pada tugas ini dan jelaskan fungsinya masing-masing.
+* `Provider`: Widget ini menyediakan objek atau data untuk diakses oleh widget di bawahnya.
+* `LeftDrawer`: Widget untuk menampilkan drawer di bagian kiri pada halaman utama.
+* `TextFormField`: Widget untuk menerima input teks dari pengguna pada formulir.
+* `ElevatedButton`: Widget untuk menampilkan tombol untuk memicu tindakan tertentu.
+* `ListView`: Widget ini digunakan untuk mengatur letak children widgetnya dalam sebuah scrollable list secara vertikal.
+* `FutureBuilder`: Widget ini digunakan untuk membangun antarmuka pengguna berdasarkan hasil dari sebuah Future, yang biasanya digunakan untuk menangani operasi asinkron seperti permintaan HTTP, pembacaan file, atau tugas-tugas asinkron lainnya.
+* `CircularProgressIndicator`: Widget ini digunakan sebagai indikator loading ketika aplikasi sedang menunggu data dari server.
+* `Navigator.push`: Widget ini digunakan untuk menambahkan rute lain ke atas tumpukan screen (stack) saat ini.
+* `Navigator.pushReplacement`: Widget digunakan untuk mengganti rute paling atas tumpukan screen (stack) saat ini.
+* `MaterialPageRoute`: Widget ini digunakan untuk memberikan efek animasi ketika berpindah layar.
+* `Align`: Widget ini digunakan untuk menempatkan child widget di dalamnya secara relatif terhadap posisi yang ditentukan di dalam parent.
+* `SizedBox`: Widget ini digunakan untuk memberikan dimensi tetap pada child widget di dalamnya.
+* `Card`: Widget untuk membungkus widget lain dalam container yang bisa dikustom background color, elevation, dan rounded cornersnya.<br>
+Widget yang pernah disebutkan di tugas 7 juga masih digunakan
+### Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step! (bukan hanya sekadar mengikuti tutorial).
+* Melakukan push ulang kode aplikasi Django dengan memberikan sedikit perbedaan pada kode aplikasi untuk mengimplementasikan login dan logout aplikasi Flutter.
+* Membuat django-app baru bernama authentication dan menambahkannya ke INSTALLED_APPS di settings.py aplikasi Django.
+* Menginstall django-cors-headers dan menambahkannya ke INSTALLED_APPS dan requirements.txt, serta menambahkan corsheaders.middleware.CorsMiddleware ke MIDDLEWARE di settings.py
+* Menambahkan beberapa konfigurasi berikut ke settings.py:
+```CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SAMESITE = 'None'
+SESSION_COOKIE_SAMESITE = 'None'
+```
+* Membuat method view untuk login dan logout pada authentication/views.py
+* Membuat berkas urls.py pada direktori authentication dan menambahkan URL routing terhadap method view yang sudah dibuat.
+* Menambahkan path('auth/', include('authentication.urls')), pada berkas library_app/urls.py
+* Meng-install package Flutter untuk melakukan kontak dengan web service Django dengan menjalankan perintah flutter pub add provider dan flutter pub add pbp_django_auth
+* Memodifikasi root widget untuk menyediakan CookieRequest library ke semua child widgets dengan menggunakan Provider
+* Membuat berkas login.dart pada folder screens 
+* Mengubah konfigurasi home pada Widget MaterialApp di berkas main.dart dari home: MyHomePage() menjadi home: LoginPage()
+* Mengimplementasikan fitur logout dengan menambahkan kode pada shop_card.dart
+* Memanfaatkan Quicktype untuk membuat model dengan data JSON 
+* Membuat berkas baru bernama book.dart pada direktori lib/models dan mengisinya dengan kode model dari Quicktype tadi.
+* Menambahkan package http dengan menjalankan perintah flutter pub add http.
+* Menambahkan kode <uses-permission android:name="android.permission.INTERNET" /> pada berkas android/app/src/main/AndroidManifest.xml untuk memperbolehkan akses internet pada aplikasi Flutter.
+* Membuat berkas list_item.dart
+```dart
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:cakestock/models/item.dart';
+import 'package:cakestock/screens/detail_item.dart';
+import 'package:cakestock/widgets/left_drawer.dart';
+import 'package:cakestock/screens/user_item.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
+
+class ItemPage extends StatefulWidget {
+  const ItemPage({Key? key}) : super(key: key);
+
+  @override
+  _ProductPageState createState() => _ProductPageState();
+}
+
+class _ProductPageState extends State<ItemPage> {
+  Future<List<Item>> fetchProduct() async {
+    var url = Uri.parse('https://lucinda-laurent-tugas.pbp.cs.ui.ac.id/json/');
+    var response = await http.get(
+      url,
+      headers: {"Content-Type": "application/json"},
+    );
+
+    // melakukan decode response menjadi bentuk json
+    var data = jsonDecode(utf8.decode(response.bodyBytes));
+
+    // melakukan konversi data json menjadi object Product
+    List<Item> list_product = [];
+    for (var d in data) {
+      if (d != null) {
+        list_product.add(Item.fromJson(d));
+      }
+    }
+    return list_product;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
+    return Scaffold(
+        appBar: AppBar(
+            title: const Text('All Cake Item(s)'),
+            backgroundColor: Colors.pinkAccent,
+            foregroundColor: Colors.white,
+            actions: [
+              ElevatedButton(
+                child: Text('My Cake Item(s) only'),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => UserItemPage()),
+                  );
+                },
+              ),
+            ]),
+        drawer: const LeftDrawer(),
+        body: FutureBuilder(
+            future: fetchProduct(),
+            builder: (context, AsyncSnapshot snapshot) {
+              if (snapshot.data == null) {
+                return const Center(child: CircularProgressIndicator());
+              } else {
+                if (!snapshot.hasData) {
+                  return const Column(
+                    children: [
+                      Text(
+                        "Tidak ada data item.",
+                        style:
+                            TextStyle(color: Color(0xff59A5D8), fontSize: 20),
+                      ),
+                      SizedBox(height: 8),
+                    ],
+                  );
+                } else {
+                  return ListView.builder(
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (_, index) => Column(children: [
+                      Card(
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 12),
+                        child: Padding(
+                            padding: const EdgeInsets.all(20.0),
+                            child: ListTile(
+                              title: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "${snapshot.data![index].fields.name}",
+                                    style: const TextStyle(
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Text(
+                                      "Price: ${snapshot.data![index].fields.price}"),
+                                  const SizedBox(height: 10),
+                                  Text(
+                                      "Description: ${snapshot.data![index].fields.description}"),
+                                ],
+                              ),
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => DetailItemPage(
+                                          item: snapshot.data![index])),
+                                );
+                              },
+                            )),
+                      )
+                    ]),
+                  );
+                }
+              }
+            }));
+  }
+}
+
+```
+* Menambahkan ItemPage ke left_drawer.dart
+* Mengubah fungsi tombol Lihat Item pada halaman utama agar mengarahkan ke halaman ItemPage
+* 

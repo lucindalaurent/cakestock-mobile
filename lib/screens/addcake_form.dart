@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:cakestock/widgets/left_drawer.dart';
+import 'package:provider/provider.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'dart:convert';
+import 'package:cakestock/screens/menu.dart';
 
 class CakeFormPage extends StatefulWidget {
   const CakeFormPage({super.key});
@@ -17,6 +21,7 @@ class _CakeFormPageState extends State<CakeFormPage> {
 
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
     return Scaffold(
         appBar: AppBar(
           title: const Center(
@@ -34,7 +39,8 @@ class _CakeFormPageState extends State<CakeFormPage> {
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.only(
+                    left: 30.0, right: 30.0, top: 30.0, bottom: 15.0),
                 child: TextFormField(
                   decoration: InputDecoration(
                     hintText: "Nama Kue",
@@ -60,7 +66,8 @@ class _CakeFormPageState extends State<CakeFormPage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.only(
+                    left: 30.0, right: 30.0, top: 0.0, bottom: 15.0),
                 child: TextFormField(
                   decoration: InputDecoration(
                     hintText: "Jumlah",
@@ -86,7 +93,8 @@ class _CakeFormPageState extends State<CakeFormPage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.only(
+                    left: 30.0, right: 30.0, top: 0.0, bottom: 15.0),
                 child: TextFormField(
                   decoration: InputDecoration(
                     hintText: "Deskripsi",
@@ -112,7 +120,8 @@ class _CakeFormPageState extends State<CakeFormPage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.only(
+                    left: 30.0, right: 30.0, top: 0.0, bottom: 15.0),
                 child: TextFormField(
                   decoration: InputDecoration(
                     hintText: "Harga",
@@ -140,49 +149,46 @@ class _CakeFormPageState extends State<CakeFormPage> {
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(30.0),
                   child: ElevatedButton(
                     style: ButtonStyle(
                       backgroundColor:
                           MaterialStateProperty.all(Colors.pinkAccent),
                     ),
-                    onPressed: () {
+                    onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title:
-                                  const Text('Kue baru berhasil ditambahkan'),
-                              content: SingleChildScrollView(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text('Jenis kue: $_name'),
-                                    Text('Jumlah: $_amount'),
-                                    Text('Deskripsi: $_description'),
-                                    Text('Harga: $_price'),
-                                  ],
-                                ),
-                              ),
-                              actions: [
-                                TextButton(
-                                  child: const Text('OK'),
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                        //pindah sini biar pesan tulisan "harga tidak kosong", dll. muncul
-                        _formKey.currentState!.reset();
+                        // Kirim ke Django dan tunggu respons
+                        // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
+                        final response = await request.postJson(
+                            "https://lucinda-laurent-tugas.pbp.cs.ui.ac.id/create-flutter/",
+                            jsonEncode(<String, String>{
+                              'name': _name,
+                              'price': _price.toString(),
+                              'description': _description,
+                              'amount': _amount.toString(),
+                            }));
+                        if (response['status'] == 'success') {
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(const SnackBar(
+                            content: Text("Produk baru berhasil disimpan!"),
+                          ));
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MyHomePage()),
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(const SnackBar(
+                            content:
+                                Text("Terdapat kesalahan, silakan coba lagi."),
+                          ));
+                        }
                       }
                     },
                     child: const Text(
                       "Save",
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
                   ),
                 ),
